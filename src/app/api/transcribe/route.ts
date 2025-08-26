@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     localForm.append('file', audioFile);
 
     // Send to local Whisper server
-    const response = await fetch('https://sale-diy-un-cats.trycloudflare.com/transcribe', {
+    const response = await fetch('https://c87e428d66b6.ngrok-free.app/transcribe', {
       method: 'POST',
       body: localForm,
     });

@@ -264,6 +264,7 @@ import { useRef, useState, FormEvent } from "react";
 import Header from "./components/Header";
 import Soild from "./components/Solid";
 import {Mic, MicOff } from "lucide-react"
+import About from "./components/about";
 
 interface Reference {
   title: string;
@@ -429,11 +430,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen  [background:radial-gradient(125%_100%_at_50%_0%,_#FFF_6.32%,_#E0F0FF_29.28%,_#E7EFFD_68.68%,_#FFF_100%)] font-mono">
-       <Header/>
+    <><><div className="min-h-screen  [background:radial-gradient(125%_100%_at_50%_0%,_#FFF_6.32%,_#E0F0FF_29.28%,_#E7EFFD_68.68%,_#FFF_100%)] font-mono">
+      <Header />
       <main className="max-w-4xl mx-auto px-8 py-8 text-center">
 
-     <Soild/>
+        <Soild />
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <textarea
             className="w-full p-3 border border-gray-300 rounded-lg"
@@ -441,23 +442,19 @@ export default function Home() {
             onChange={(e) => setSymptoms(e.target.value)}
             placeholder="Describe your symptoms..."
             rows={5}
-            required
-          />
+            required />
           <div className="flex gap-6 items-center justify-center">
-             <SpeechToTextRecorder
-            onTranscription={(text) =>
-              setSymptoms((prev) => (prev ? prev + " " + text : text))
-            }
-          />
+            <SpeechToTextRecorder
+              onTranscription={(text) => setSymptoms((prev) => (prev ? prev + " " + text : text))} />
 
-          <button
-            ref={buttonRef}
-            type="submit"
-            className="bg-black text-white  px-4 py-2 rounded-full mt-4"
-            disabled={isLoading}
-          >
-            {isLoading ? "Analyzing..." : "Get Diagnosis"}
-          </button>
+            <button
+              ref={buttonRef}
+              type="submit"
+              className="bg-black text-white  px-4 py-2 rounded-full mt-4"
+              disabled={isLoading}
+            >
+              {isLoading ? "Analyzing..." : "Get Diagnosis"}
+            </button>
           </div>
         </form>
 
@@ -465,7 +462,7 @@ export default function Home() {
 
         {result && (
           <div className="mt-8 p-6 bg-gray-50 border border-gray-300 rounded-lg text-left">
-            {/* Display results like in your original page */}
+           
             {result.patient_summary && (
               <p>
                 <strong>Summary:</strong> {result.patient_summary}
@@ -473,7 +470,11 @@ export default function Home() {
             )}
           </div>
         )}
-    </main>
+      </main>
     </div>
+
+
+
+      <About /></></>
   );
 }

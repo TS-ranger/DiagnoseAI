@@ -13,9 +13,6 @@ export default function Solid() {
 
         <p className="text-lg md:text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
           Enter your symptoms below to get started.
-          <strong className="block mt-2">
-            Always consult a healthcare professional for medical advice.
-          </strong>
         </p>
         </div>
   )

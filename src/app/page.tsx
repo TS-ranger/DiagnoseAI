@@ -101,7 +101,7 @@ export default function Home() {
                      onSubmit={handleSubmit}
                      className="flex flex-col gap-4">
                      <textarea
-                               className="w-full p-3 border border-gray-300 rounded-lg text-sm text-center focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
+                               className="w-full p-3 border-2 border-gray-300 rounded-full text-sm text-center focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
                                value={symptoms}
                                onChange={(e) => setSymptoms(e.target.value)}
                                placeholder="Describe your symptoms (e.g. high fever, body aches, runny nose...)"
@@ -109,7 +109,7 @@ export default function Home() {
                                required
                               />
   
-                    <div className="flex items-center justify-center gap-3 mt-4">
+                    <div className="flex items-center justify-center gap-3 mt-4 ">
                       <SpeechToTextInput
                         onTranscription={(text) => {
                          const updated = symptoms ? `${symptoms} ${text}` : text;
@@ -138,9 +138,9 @@ export default function Home() {
             </div>
         </main>
       </div>
-     <hr className="my-12 border-t border-neutral-500 dark:border-neutral-700" />
-
+    <hr className="my-6 h-px border-0 bg-gradient-to-r from-transparent via-gray-400 to-transparent" />
       <About />
     </>
   );
 }
+

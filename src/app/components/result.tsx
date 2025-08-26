@@ -37,7 +37,7 @@ interface ResultProps {
   error: string;
 }
 
-export default function Result({ result, isLoading, error }: ResultProps) {
+export default function Result({ result}: ResultProps) {
   // If no result yet, return null
   if (!result) {
     return null;

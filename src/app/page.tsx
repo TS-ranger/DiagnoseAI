@@ -48,7 +48,6 @@ export default function Home() {
     if (buttonRef.current) buttonRef.current.click();
   }, { enableOnFormTags: true });
 
-  // Reusable diagnosis function
   const fetchDiagnosis = async (input: string) => {
     if (!input.trim()) return;
     setIsLoading(true);
@@ -96,48 +95,51 @@ export default function Home() {
         <main className="max-w-4xl mx-auto px-8 text-center">
           <Solid />
 
-          {/* Diagnostic Section */}
-          {/* <div className="rounded-lg p-8 shadow-2xl shadow-amber-300/60 max-w-4xl mx-auto mb-16 text-left bg-amber-600"> */}
             <div className="w-full flex flex-col gap-8">
-              {/* Left Column: Input */}
               <div className="">
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-                  <textarea
-                    className="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
-                    value={symptoms}
-                    onChange={(e) => setSymptoms(e.target.value)}
-                    placeholder="e.g., high fever, body aches, runny nose..."
-                    rows={5}
-                    required
-                  />
-                  <div className="flex items-center gap-4 justify-center mt-10">
-                    <SpeechToTextInput
-                      onTranscription={(text) => {
-                        const updated = symptoms ? `${symptoms} ${text}` : text;
-                        setSymptoms(updated);
-                        fetchDiagnosis(updated);
-                      }}
-                    />
-                    <PrimaryButton disabled={isLoading}>
-                      {isLoading ? 'Analyzing...' : 'Get Diagnosis'}
-                    </PrimaryButton>
-                  </div>
-                </form>
+               <form
+                     onSubmit={handleSubmit}
+                     className="flex flex-col gap-4">
+                     <textarea
+                               className="w-full p-3 border border-gray-300 rounded-lg text-sm text-center focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
+                               value={symptoms}
+                               onChange={(e) => setSymptoms(e.target.value)}
+                               placeholder="Describe your symptoms (e.g. high fever, body aches, runny nose...)"
+                               rows={2}
+                               required
+                              />
+  
+                    <div className="flex items-center justify-center gap-3 mt-4">
+                      <SpeechToTextInput
+                        onTranscription={(text) => {
+                         const updated = symptoms ? `${symptoms} ${text}` : text;
+                          setSymptoms(updated);
+                         fetchDiagnosis(updated);
+                        }}
+                      />
+                     <PrimaryButton
+                      disabled={isLoading} >
+                       {isLoading ? 'Analyzing...' : 'Get Diagnosis'}
+                     </PrimaryButton>
+                </div>
+              </form>
+
+
                 {isLoading && (
                   <div className="mx-auto my-8 border-4 border-gray-200 border-t-green-600 rounded-full w-10 h-10 animate-spin"></div>
                 )}
                 {error && <p className="text-red-600 text-center mt-4">{error}</p>}
               </div>
 
-              {/* Right Column: Result */}
+              
               <div className="">
-                <Result result={result} isLoading={isLoading} error={error} /> {/* <-- New component */}
+                <Result result={result} isLoading={isLoading} error={error} /> 
               </div>
             </div>
-          {/* </div> */}
         </main>
       </div>
-      <hr className="my-12 h-0.5 border-t-0 bg-neutral-800 opacity-100 dark:opacity-50" />   
+     <hr className="my-12 border-t border-neutral-500 dark:border-neutral-700" />
+
       <About />
     </>
   );

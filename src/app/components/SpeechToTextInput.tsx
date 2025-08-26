@@ -106,6 +106,7 @@
 
 'use client';
 import { useRef, useState } from 'react';
+import { Mic, MicOff } from 'lucide-react';
 
 type Props = {
   onTranscription: (text: string) => void; // parent will append/insert this
@@ -200,11 +201,11 @@ export default function SpeechToTextInput({ onTranscription }: Props) {
       <button
         type="button"
         onClick={isRecording ? stopRecording : startRecording}
-        className={`px-4 py-2 rounded text-white ${
-          isRecording ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
+        className={`p-4 rounded-full text-white ${
+          isRecording ? 'bg-red-600 hover:bg-red-700' : 'bg-gray-600 hover:bg-gray-700 hover:cursor-pointer'
         }`}
       >
-        {isRecording ? 'Stop & Transcribe' : 'Record Symptoms'}
+        {isRecording ? <MicOff /> : <Mic />}
       </button>
 
       {isTranscribing && <span className="text-sm text-gray-600">Transcribing…</span>}
@@ -212,3 +213,4 @@ export default function SpeechToTextInput({ onTranscription }: Props) {
     </div>
   );
 }
+

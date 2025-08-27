@@ -127,6 +127,7 @@ export default function Home() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await fetchDiagnosis(symptoms);
+    
   };
 
   return (
@@ -158,7 +159,7 @@ export default function Home() {
                         }}
                       />
                      <Button
-                   
+
                         className="bg-black text-white hover:ring-black"
                       disabled={isLoading} >
                        {isLoading ? 'Analyzing...' : 'Get Diagnosis'}

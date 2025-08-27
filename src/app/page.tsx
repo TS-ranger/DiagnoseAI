@@ -8,6 +8,9 @@ import Solid from "./components/Solid";
 import Result from "./components/result";
 import {PrimaryButton} from "./components/Button";
 import {Button} from "./components/ui/stateful-button";
+import Footer from "./components/footer";
+
+
 // import Typewriter from 'typewriter-effect'; // not needed for placeholder typing
 
 interface Reference {
@@ -182,6 +185,7 @@ export default function Home() {
       </div>
     <hr className="my-6 h-px border-0 bg-gradient-to-r from-transparent via-gray-400 to-transparent" />
       <About />
+      <Footer />
     </>
   );
 }

@@ -131,18 +131,18 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen [background:radial-gradient(125%_100%_at_50%_0%,_#FFF_6.32%,_#E0F0FF_29.28%,_#E7EFFD_68.68%,_#FFF_100%)] font-mono">
+      <div className="min-h-screen [background:radial-gradient(125%_100%_at_50%_0%,_#FFF_6.32%,_#E0F0FF_29.28%,_#E7EFFD_68.68%,_#FFF_100%)] p-5 font-mono">
         <Header />
-        <main className="max-w-4xl mx-auto px-8 text-center">
+        <main className="max-w-4xl mx-auto text-center">
           <Solid />
 
-            <div className="w-full flex flex-col gap-8">
-              <div className="">
+            <div className="w-full  flex flex-col gap-8">
+              <div className=" md:mt-20">
                <form
                      onSubmit={handleSubmit}
                      className="flex flex-col gap-4">
                      <textarea
-                               className="w-full p-3 border-2 border-gray-300 rounded-full text-sm text-center focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
+                               className="min-w-[66vw] md:min-w-[50vw]  mx-auto p-3 border-2 border-gray-300 rounded-full text-sm text-center focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
                                value={symptoms}
                                onChange={(e) => setSymptoms(e.target.value)}
                                placeholder={placeholder}
@@ -158,6 +158,7 @@ export default function Home() {
                         }}
                       />
                      <Button
+                        // ref={buttonRef}
                         className="bg-black text-white hover:ring-black"
                       disabled={isLoading} >
                        {isLoading ? 'Analyzing...' : 'Get Diagnosis'}
@@ -172,9 +173,9 @@ export default function Home() {
                 {error && <p className="text-red-600 text-center mt-4">{error}</p>}
               </div>
 
-              
+
               <div className="">
-                <Result result={result} isLoading={isLoading} error={error} /> 
+                <Result result={result} isLoading={isLoading} error={error} />
               </div>
             </div>
         </main>

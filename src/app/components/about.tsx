@@ -27,7 +27,7 @@ export default function About() {
             This tool is powered by a combination of two powerful AI technologies. The Google Gemini model performs the core analysis and diagnosis, while OpenAI&apos;s Whisper model provides the seamless speech-to-text transcription, allowing you to describe your symptoms naturally using your voice.
           </p>
           <p className="px-4 text-center space-y-6  text-lg md:text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
-            <span className="text-red-300">This assistant is for informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for any medical questions or concerns.</span> 
+            <span className="text-red-500">This assistant is for informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for any medical questions or concerns.</span> 
           </p>
         </div>
       </div>

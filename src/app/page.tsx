@@ -48,14 +48,14 @@ export default function Home() {
   const [result, setResult] = useState<ResultData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [placeholder, setPlaceholder] = useState<string>(''); // << typewriter placeholder
+  const [placeholder, setPlaceholder] = useState<string>(''); 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useHotkeys("enter", () => {
     if (buttonRef.current) buttonRef.current.click();
   }, { enableOnFormTags: true });
 
-  // Lightweight placeholder typewriter (works reliably for placeholder strings)
+ 
   useEffect(() => {
     const phrases = [
       'Describe your symptoms...',
@@ -72,17 +72,15 @@ export default function Home() {
       const full = phrases[phraseIndex];
 
       if (!deleting) {
-        // typing forward
         charIndex = Math.min(charIndex + 1, full.length);
         setPlaceholder(full.slice(0, charIndex));
 
         if (charIndex === full.length) {
           deleting = true;
-          timer = window.setTimeout(type, 1200); // pause at end
+          timer = window.setTimeout(type, 1200); 
           return;
         }
       } else {
-        // deleting backward
         charIndex = Math.max(charIndex - 1, 0);
         setPlaceholder(full.slice(0, charIndex));
 
@@ -161,7 +159,6 @@ export default function Home() {
                         }}
                       />
                      <Button
-                        // ref={buttonRef}
                         className="bg-black text-white hover:ring-black"
                       disabled={isLoading} >
                        {isLoading ? 'Analyzing...' : 'Get Diagnosis'}

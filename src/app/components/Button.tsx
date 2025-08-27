@@ -10,7 +10,6 @@ export const PrimaryButton = ({ children, onClick, disabled }: { children: React
     </button>
   );
 
-
 export  const OutlineButton = ({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) => (
     <button
       onClick={onClick}

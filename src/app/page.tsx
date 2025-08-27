@@ -1,11 +1,14 @@
 'use client';
 import { useHotkeys } from "react-hotkeys-hook";
-import { useRef, useState, FormEvent } from 'react';
+import { useRef, useState, useEffect, FormEvent } from 'react';
 import SpeechToTextInput from "./components/SpeechToTextInput";
 import About from "./components/about";
 import Header from "./components/Header";
 import Solid from "./components/Solid";
 import Result from "./components/result";
+import {PrimaryButton} from "./components/Button";
+import {Button} from "./components/ui/stateful-button";
+// import Typewriter from 'typewriter-effect'; // not needed for placeholder typing
 
 interface Reference {
   title: string;
@@ -42,13 +45,61 @@ export default function Home() {
   const [result, setResult] = useState<ResultData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [placeholder, setPlaceholder] = useState<string>(''); // << typewriter placeholder
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useHotkeys("enter", () => {
     if (buttonRef.current) buttonRef.current.click();
   }, { enableOnFormTags: true });
 
-  // Reusable diagnosis function
+  // Lightweight placeholder typewriter (works reliably for placeholder strings)
+  useEffect(() => {
+    const phrases = [
+      'Describe your symptoms...',
+      'e.g. high fever, body aches, runny nose...',
+      'Tell us how you feel today?',
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let timer: number | undefined;
+
+    const type = () => {
+      const full = phrases[phraseIndex];
+
+      if (!deleting) {
+        // typing forward
+        charIndex = Math.min(charIndex + 1, full.length);
+        setPlaceholder(full.slice(0, charIndex));
+
+        if (charIndex === full.length) {
+          deleting = true;
+          timer = window.setTimeout(type, 1200); // pause at end
+          return;
+        }
+      } else {
+        // deleting backward
+        charIndex = Math.max(charIndex - 1, 0);
+        setPlaceholder(full.slice(0, charIndex));
+
+        if (charIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+      }
+
+      const speed = deleting ? 30 : 75;
+      timer = window.setTimeout(type, speed);
+    };
+
+    type();
+
+    return () => {
+      if (timer) window.clearTimeout(timer);
+    };
+  }, []);
+
   const fetchDiagnosis = async (input: string) => {
     if (!input.trim()) return;
     setIsLoading(true);
@@ -78,17 +129,6 @@ export default function Home() {
     await fetchDiagnosis(symptoms);
   };
 
-  const PrimaryButton = ({ children, onClick, disabled }: { children: React.ReactNode; onClick?: () => void; disabled?: boolean }) => (
-    <button
-      ref={buttonRef}
-      onClick={onClick}
-      disabled={disabled}
-      className="bg-black text-white px-4 py-2 rounded-full text-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-    >
-      {children}
-    </button>
-  );
-
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-white font-mono">
@@ -96,48 +136,51 @@ export default function Home() {
         <main className="max-w-4xl mx-auto px-8 text-center">
           <Solid />
 
-          {/* Diagnostic Section */}
-          {/* <div className="rounded-lg p-8 shadow-2xl shadow-amber-300/60 max-w-4xl mx-auto mb-16 text-left bg-amber-600"> */}
             <div className="w-full flex flex-col gap-8">
-              {/* Left Column: Input */}
               <div className="">
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-                  <textarea
-                    className="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
-                    value={symptoms}
-                    onChange={(e) => setSymptoms(e.target.value)}
-                    placeholder="e.g., high fever, body aches, runny nose..."
-                    rows={5}
-                    required
-                  />
-                  <div className="flex items-center gap-4 justify-center mt-10">
-                    <SpeechToTextInput
-                      onTranscription={(text) => {
-                        const updated = symptoms ? `${symptoms} ${text}` : text;
-                        setSymptoms(updated);
-                        fetchDiagnosis(updated);
-                      }}
-                    />
-                    <PrimaryButton disabled={isLoading}>
-                      {isLoading ? 'Analyzing...' : 'Get Diagnosis'}
-                    </PrimaryButton>
-                  </div>
-                </form>
+               <form
+                     onSubmit={handleSubmit}
+                     className="flex flex-col gap-4">
+                     <textarea
+                               className="w-full p-3 border-2 border-gray-300 rounded-full text-sm text-center focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
+                               value={symptoms}
+                               onChange={(e) => setSymptoms(e.target.value)}
+                               placeholder={placeholder}
+                               rows={2}
+                               required
+                      />
+                      <div className="flex items-center justify-center gap-3 mt-4 ">
+                      <SpeechToTextInput
+                        onTranscription={(text) => {
+                         const updated = symptoms ? `${symptoms} ${text}` : text;
+                          setSymptoms(updated);
+                         fetchDiagnosis(updated);
+                        }}
+                      />
+                     <Button
+                        // ref={buttonRef}
+                        className="bg-black text-white hover:ring-black"
+                      disabled={isLoading} >
+                       {isLoading ? 'Analyzing...' : 'Get Diagnosis'}
+                     </Button>
+                </div>
+              </form>
+
+
                 {isLoading && (
                   <div className="mx-auto my-8 border-4 border-gray-200 border-t-green-600 rounded-full w-10 h-10 animate-spin"></div>
                 )}
                 {error && <p className="text-red-600 text-center mt-4">{error}</p>}
               </div>
 
-              {/* Right Column: Result */}
+              
               <div className="">
-                <Result result={result} isLoading={isLoading} error={error} /> {/* <-- New component */}
+                <Result result={result} isLoading={isLoading} error={error} /> 
               </div>
             </div>
-          {/* </div> */}
         </main>
       </div>
-      <hr className="my-12 h-0.5 border-t-0 bg-neutral-800 opacity-100 dark:opacity-50" />   
+    <hr className="my-6 h-px border-0 bg-gradient-to-r from-transparent via-gray-400 to-transparent" />
       <About />
     </>
   );

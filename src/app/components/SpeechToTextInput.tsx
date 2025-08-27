@@ -109,7 +109,7 @@ import { useRef, useState } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 
 type Props = {
-  onTranscription: (text: string) => void; // parent will append/insert this
+  onTranscription: (text: string) => void; 
 };
 
 export default function SpeechToTextInput({ onTranscription }: Props) {
@@ -120,12 +120,12 @@ export default function SpeechToTextInput({ onTranscription }: Props) {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
 
-  // Pick a MIME type that the browser supports
+  
   function pickMime(): string {
     const candidates = [
       'audio/webm;codecs=opus',
       'audio/webm',
-      'audio/mp4',         // Safari fallback (no MediaRecorder in some older Safari)
+      'audio/mp4',         
       'audio/ogg;codecs=opus'
     ];
     return candidates.find((m) => MediaRecorder.isTypeSupported(m)) || '';
@@ -150,13 +150,12 @@ export default function SpeechToTextInput({ onTranscription }: Props) {
         try {
           const type = mr.mimeType || 'audio/webm';
           const blob = new Blob(chunksRef.current, { type });
-          // Name by extension so Whisper can infer format
           const ext = type.includes('mp4') ? 'm4a' : type.includes('ogg') ? 'ogg' : 'webm';
           const file = new File([blob], `recording.${ext}`, { type });
 
           setIsTranscribing(true);
           const formData = new FormData();
-          formData.append('audio', file); // <-- new
+          formData.append('audio', file); 
 
 
           const res = await fetch('/api/transcribe', {
@@ -176,7 +175,6 @@ export default function SpeechToTextInput({ onTranscription }: Props) {
           setError(err.message || 'Transcription failed');
         } finally {
           setIsTranscribing(false);
-          // stop all tracks to release mic
           stream.getTracks().forEach((t) => t.stop());
         }
       };

@@ -6,13 +6,13 @@ export default function Solid() {
           Built with great minds !
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-medium  text-black mb-6 leading-tight">
+        <h1 className="text-4xl md:text-4xl font-medium  text-black mb-6 leading-tight">
           AI that provides<br />
           diagnostic information in real-time
         </h1>
 
         <p className="text-lg md:text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
-          Enter your symptoms below to get started.
+          Enter your symptoms below to get started...
         </p>
         </div>
   )

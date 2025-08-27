@@ -10,7 +10,7 @@ export default function Header() {
               <div key={i} className="w-1.5 h-1.5 bg-black rounded-full"></div>
             ))}
           </div>
-          <span className="text-xl font-medium text-black">MYLE AI </span>
+          <span className="text-xl font-medium text-black">Dignose AI </span>
         </div>
        <nav className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-sm">
           <a href="#features" className="cursor-pointer  text-black hover:text-gray-700">Home</a>

@@ -47,14 +47,14 @@ export default function Home() {
   const [result, setResult] = useState<ResultData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [placeholder, setPlaceholder] = useState<string>(''); 
+  const [placeholder, setPlaceholder] = useState<string>('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useHotkeys("enter", () => {
     if (buttonRef.current) buttonRef.current.click();
   }, { enableOnFormTags: true });
 
- 
+
   useEffect(() => {
     const phrases = [
       'Describe your symptoms...',
@@ -76,7 +76,7 @@ export default function Home() {
 
         if (charIndex === full.length) {
           deleting = true;
-          timer = window.setTimeout(type, 1200); 
+          timer = window.setTimeout(type, 1200);
           return;
         }
       } else {
@@ -127,6 +127,8 @@ export default function Home() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await fetchDiagnosis(symptoms);
+   setSymptoms("");
+
   };
 
   return (
@@ -158,7 +160,6 @@ export default function Home() {
                         }}
                       />
                      <Button
-                        // ref={buttonRef}
                         className="bg-black text-white hover:ring-black"
                       disabled={isLoading} >
                        {isLoading ? 'Analyzing...' : 'Get Diagnosis'}

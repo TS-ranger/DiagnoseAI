@@ -153,10 +153,11 @@ export default function Home() {
                       />
                       <div className="flex items-center justify-center gap-3 mt-4 ">
                       <SpeechToTextInput
-                        onTranscription={(text) => {
+                        onTranscription={async (text) => {
                          const updated = symptoms ? `${symptoms} ${text}` : text;
                           setSymptoms(updated);
-                         fetchDiagnosis(updated);
+                         await fetchDiagnosis(updated);
+                         setSymptoms("");
                         }}
                       />
                      <Button

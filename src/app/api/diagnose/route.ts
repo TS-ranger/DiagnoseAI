@@ -65,7 +65,10 @@ export async function POST(req: NextRequest) {
     const symptoms: string | undefined = body?.symptoms;
 
     if (!symptoms || typeof symptoms !== "string") {
-      return NextResponse.json({ error: "Symptoms are required." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Symptoms are required." },
+        { status: 400 }
+      );
     }
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -83,18 +86,27 @@ export async function POST(req: NextRequest) {
     }
 
     // Parse JSON safely
-    let data
+    let data;
     try {
       data = JSON.parse(cleanText);
     } catch (jsonErr) {
       console.error("Failed to parse Gemini JSON:", jsonErr, "\nOutput was:\n", cleanText);
-      return NextResponse.json(
-        { error: "Invalid response format from AI. Please try again." },
-        { status: 500 }
-      );
+
+      // Fallback: always return a valid response
+      return NextResponse.json({
+        no_disease_found: "No known disease found for the given symptoms."
+      });
+    }
+
+    // Ensure that even if Gemini output an empty object, we return a fallback
+    if (!data || Object.keys(data).length === 0) {
+      return NextResponse.json({
+        no_disease_found: "No known disease found for the given symptoms."
+      });
     }
 
     return NextResponse.json(data);
+
   } catch (err) {
     console.error("Error in diagnose API:", err);
     return NextResponse.json(

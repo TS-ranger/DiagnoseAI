@@ -4,7 +4,7 @@ import { Github } from 'lucide-react'
 
 export default function Header() {
   return (<div>
-      <header className="flex justify-between items-center px-8 py-6">
+      <header className="flex justify-between items-center px-4 py-5">
         <div className="flex items-center space-x-6">
           <div className="w-8 h-8 grid grid-cols-3 gap-1">
             {[...Array(9)].map((_, i) => (
@@ -20,10 +20,12 @@ export default function Header() {
         </nav>
 
         <a href="#features" className="no-underline">
-          <PrimaryButton >
-           <Github />
-          </PrimaryButton>
-        </a>
+          <button 
+              className="bg-black text-white p-3 rounded-full hover:bg-gray-800 hover:cursor-pointer hover:scale-105 transition-colors flex items-center"
+              onClick={() => window.open("https://github.com/TS-ranger/DiagnoseAI", "_blank")}>
+              <Github />
+          </button>
+         </a>
       </header>
 
   </div>

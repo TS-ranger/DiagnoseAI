@@ -127,7 +127,8 @@ export default function Home() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await fetchDiagnosis(symptoms);
-    
+   setSymptoms("");
+
   };
 
   return (

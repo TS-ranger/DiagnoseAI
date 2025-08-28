@@ -18,25 +18,28 @@ export default function Footer() {
             {
               id: 1,
               name: "Nabadeep",
-              designation: "Follow",
+              designation: "Connect",
               image: "https://avatars.githubusercontent.com/u/119917983?v=4",
+              github: "https://github.com/NABADEEP069"
             },
             {
               id: 2,
               name: "Tushar",
               designation: "Connect",
               image: "https://avatars.githubusercontent.com/u/128035005?v=4",
+              github: "https://github.com/TS-ranger"
             },
             {
               id: 3,
               name: "Prashant",
-              designation: "Follow",
+              designation: "Connect",
               image: "https://avatars.githubusercontent.com/u/117459774?v=4",
+              github: "https://github.com/prashxant"
             },
           ]}
         />
       </div>
-      <div className="text-center text-gray-600 text-lg font-semibold px-4 mb-2">
+      <div className="text-center text-gray-600 text-lg px-4 mb-2">
         @Dignose AI
       </div>
     </footer>

@@ -160,7 +160,6 @@ export default function Home() {
                         }}
                       />
                      <Button
-
                         className="bg-black text-white hover:ring-black"
                       disabled={isLoading} >
                        {isLoading ? 'Analyzing...' : 'Get Diagnosis'}

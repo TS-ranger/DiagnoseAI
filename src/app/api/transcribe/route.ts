@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     localForm.append('file', audioFile);
 
     // Send to local Whisper server
-    const response = await fetch('https://5b1cab464343.ngrok-free.app/transcribe', {
+    const response = await fetch('https://341b248bfed8.ngrok-free.app/transcribe', {
       method: 'POST',
       body: localForm,
     });

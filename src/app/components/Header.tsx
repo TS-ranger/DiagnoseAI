@@ -1,17 +1,19 @@
 import React from 'react'
-import { PrimaryButton } from './Button'
 import { Github } from 'lucide-react'
 
 export default function Header() {
   return (<div>
       <header className="flex justify-between items-center px-4 py-5">
-        <div className="flex items-center space-x-6">
+        <div 
+          onClick={() => window.location.href = '/'}
+          className="flex items-center space-x-6 cursor-pointer"
+        >
           <div className="w-8 h-8 grid grid-cols-3 gap-1">
             {[...Array(9)].map((_, i) => (
               <div key={i} className="w-1.5 h-1.5 bg-black rounded-full"></div>
             ))}
           </div>
-          <span className="sm:text-xl  font-medium  text-black">Dignose AI </span>
+          <span className="sm:text-xl font-medium text-black">Dignose AI </span>
         </div>
        <nav className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-sm">
           <a href="#features" className="cursor-pointer  text-black hover:text-gray-700">Home</a>
